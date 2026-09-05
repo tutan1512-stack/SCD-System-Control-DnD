@@ -1,5 +1,7 @@
 import customtkinter as ctk
+from tkinter import *
 
+import backend.function as func
 import backend.RandomDice as rd
 
 # создаем тело программы
@@ -16,7 +18,7 @@ class App(ctk.CTk):
         self.version_bar.pack(side = 'bottom', fill = 'x', padx = 10, pady = 5 )
 
         # авторы
-        self.version_text = ctk.CTkLabel(self.version_bar, text = 'Версия: 0.1.0', font = ('Minecraft RUS', 14), text_color = 'gray')
+        self.version_text = ctk.CTkLabel(self.version_bar, text = 'Версия: 1.0.0', font = ('Minecraft RUS', 14), text_color = 'gray')
         self.version_text.pack(side = 'left')
 
         self.author = ctk.CTkLabel(self.version_bar, text='TerraCorp', font=('Minecraft RUS', 14),text_color='gray')
@@ -62,50 +64,24 @@ class App(ctk.CTk):
             self.control_frame,
             values = ['1d100','1d20','1d12','1d10','1d8','1d6','1d4'] )
         self.dice_checkbox.grid(row = 0, column = 0, padx = 10, pady = (10,10), sticky = 'ns')
-        current_list = self.dice_checkbox.get()
 
 
         # левый фрейм
         # --------------------------------
-        self.result_box = ctk.CTkFrame(self.dice_frame, width = 300, height = 150)
-        self.result_box.grid(row = 0, column = 0, padx = 10, pady = 10, columnspan = 1, sticky = 'nsew')
-        self.result_label = ctk.CTkLabel(self.result_box, text = '')
-        self.result_label.pack(pady = 50)
+        self.result_frame = ctk.CTkFrame(self.dice_frame, width = 300, height = 150)
+        self.result_frame.grid(row = 0, column = 0, padx = 10, pady = 10, columnspan = 1, sticky = 'nsew')
+
+        self.result_box = ctk.CTkTextbox(self.result_frame, width=200, height=200,wrap='word')
+        self.result_box.pack(pady = 50)
 
         # настройки кнопок
 
         self.button = ctk.CTkButton(
             master = self.dice_frame, # указывает к какому телу будет привязано
             text = ' Бросить кубы! ',
-            command = self.active_dice # какая команда будет выполнена при нажатии
-        )
+            command = lambda : func.dice_roll(self.dice_checkbox, self.result_box) # какая команда будет выполнена при нажатии
+        ) # lambda тут нужна, чтобы при компиляции код сразу не срабатывал на холостом
         self.button.grid(row = 1, column = 1, padx=20, pady=10)
-
-    # сборщик подтверждений с чекбоксов
-    def active_dice(self):
-        active = self.dice_checkbox.get() # запрашиваем у чекбоксов список
-        if not active: # если список пустой, выдаем ошибку
-            self.result_label.configure(text='Необходимо выбрать дайсы')
-            return
-        self.throw_dice(active) # передаем активный список в функцию бросков
-
-    def throw_dice(self, values):
-        summ = 0
-        result_list = [] # список результатов на вывод
-        for val in values:
-
-            if len(values) == 1:
-                result = rd.random_dice(val)
-                self.result_label.configure(text=result )
-
-            else:  # если у нас несколько элементов, закидываем результаты в список
-                result = rd.random_dice(val)
-                summ += result
-                result_list.append(result)
-
-            self.result_label.configure(text=result_list)
-
-
 
 
 class ControlBoxFrame(ctk.CTkFrame):
