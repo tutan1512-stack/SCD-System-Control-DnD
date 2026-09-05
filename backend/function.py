@@ -19,6 +19,7 @@ def throw_dice(data: list):
     result_list = []  # список результатов на вывод
     summ = 0
     for value in data:
+        print(value)
         result = rd.random_dice(value)
         summ += result
         dice_values = ({

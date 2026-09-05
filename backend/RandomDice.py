@@ -11,6 +11,7 @@ def random_dice(type_dice):
         if  dice[0].isdigit():
             part = dice.lower().split('d') # 5d20 -> 520
             multiplier = int(part[0]) # 520 -> 5
+            print(multiplier)
             edge = int(part[1]) # 520 -> 20
             #print(f'[>] Результат бросков {dice[1:]} ({multiplier}) раз: \n')
 

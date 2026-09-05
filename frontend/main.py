@@ -68,11 +68,18 @@ class App(ctk.CTk):
 
         # левый фрейм
         # --------------------------------
-        self.result_frame = ctk.CTkFrame(self.dice_frame, width = 300, height = 150)
-        self.result_frame.grid(row = 0, column = 0, padx = 10, pady = 10, columnspan = 1, sticky = 'nsew')
+        self.result_frame = ctk.CTkFrame(self.dice_frame, width = 150, height = 200)
+        self.result_frame.grid(row = 0, column =0)
 
-        self.result_box = ctk.CTkTextbox(self.result_frame, width=200, height=200,wrap='word',font=('Aria', 14))
-        self.result_box.pack(pady = 50)
+        self.result_box = ctk.CTkTextbox(self.result_frame, width=150, height = 150, wrap='word',font=('Aria', 14))
+        self.result_box.grid(row = 0, column = 0, padx = (20,20), pady = (20,20))
+
+        self.summ_box = ctk.CTkTextbox(self.result_frame, width=60, height=60)
+        self.summ_box.grid(row = 0, column = 1,padx = (20,20), pady = (20,20))
+
+        self.summ_label = ctk.CTkLabel(self.result_frame,text="Сумма бросков")
+        self.summ_label.grid(row = 1, column = 1, sticky = 'ne')
+       # self.summ_box.grid(row = 1, column = 1, padx = 10, pady = 10, columnspan = 1, sticky = '')
 
         # настройки кнопок
 
