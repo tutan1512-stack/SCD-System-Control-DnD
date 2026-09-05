@@ -18,7 +18,7 @@ class App(ctk.CTk):
         self.version_bar.pack(side = 'bottom', fill = 'x', padx = 10, pady = 5 )
 
         # авторы
-        self.version_text = ctk.CTkLabel(self.version_bar, text = 'Версия: 1.0.0', font = ('Minecraft RUS', 14), text_color = 'gray')
+        self.version_text = ctk.CTkLabel(self.version_bar, text = 'Версия: 1.0.2', font = ('Minecraft RUS', 14), text_color = 'gray')
         self.version_text.pack(side = 'left')
 
         self.author = ctk.CTkLabel(self.version_bar, text='TerraCorp', font=('Minecraft RUS', 14),text_color='gray')
@@ -71,7 +71,7 @@ class App(ctk.CTk):
         self.result_frame = ctk.CTkFrame(self.dice_frame, width = 300, height = 150)
         self.result_frame.grid(row = 0, column = 0, padx = 10, pady = 10, columnspan = 1, sticky = 'nsew')
 
-        self.result_box = ctk.CTkTextbox(self.result_frame, width=200, height=200,wrap='word')
+        self.result_box = ctk.CTkTextbox(self.result_frame, width=200, height=200,wrap='word',font=('Aria', 14))
         self.result_box.pack(pady = 50)
 
         # настройки кнопок
