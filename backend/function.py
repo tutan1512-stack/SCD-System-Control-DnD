@@ -32,9 +32,12 @@ def throw_dice(data: list):
     return result_list
 
 # распаковщик словарей
-def unpacking(data, textbox):
+def unpacking(data, textbox, sumbox):
     textbox.configure(state='normal')  # разрешение на редактирование
     textbox.delete('1.0', 'end')  # очищаем вывод
+
+    sumbox.configure(state='normal')  # разрешение на редактирование
+    sumbox.delete('1.0', 'end')  # очищаем вывод
 
     summ = 0
 
@@ -50,13 +53,14 @@ def unpacking(data, textbox):
 
         new_text = " | ".join(item_list) + "\n"
         textbox.insert('end', new_text)
-    textbox.insert('end', f'Сумма: {summ}')
+    sumbox.insert('end', summ, 'center')
     summ =0
 
     textbox.configure(state='disable')
+    sumbox.configure(state='disable')
 
 
-def dice_roll(list_check_box, textbox):
+def dice_roll(list_check_box, textbox, sumbox):
     data = active_item(list_check_box, textbox)
 
     #print("DATA:", data)
@@ -69,4 +73,4 @@ def dice_roll(list_check_box, textbox):
 
    # print("RESULT:", roll_result)
 
-    unpacking(roll_result, textbox)
+    unpacking(roll_result, textbox, sumbox)

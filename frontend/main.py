@@ -18,7 +18,7 @@ class App(ctk.CTk):
         self.version_bar.pack(side = 'bottom', fill = 'x', padx = 10, pady = 5 )
 
         # авторы
-        self.version_text = ctk.CTkLabel(self.version_bar, text = 'Версия: 1.0.2', font = ('Minecraft RUS', 14), text_color = 'gray')
+        self.version_text = ctk.CTkLabel(self.version_bar, text = 'Версия: 1.0.3', font = ('Minecraft RUS', 14), text_color = 'gray')
         self.version_text.pack(side = 'left')
 
         self.author = ctk.CTkLabel(self.version_bar, text='TerraCorp', font=('Minecraft RUS', 14),text_color='gray')
@@ -71,14 +71,23 @@ class App(ctk.CTk):
         self.result_frame = ctk.CTkFrame(self.dice_frame, width = 150, height = 200)
         self.result_frame.grid(row = 0, column =0)
 
+        self.result_frame.columnconfigure(index=0, weight = 1)
+        self.result_frame.columnconfigure(index=1,weight=1)
+        self.result_frame.rowconfigure(index=0,weight=1)
+        self.result_frame.rowconfigure(index=1,weight=0)
+
+        # вывод результата
         self.result_box = ctk.CTkTextbox(self.result_frame, width=150, height = 150, wrap='word',font=('Aria', 14))
-        self.result_box.grid(row = 0, column = 0, padx = (20,20), pady = (20,20))
+        self.result_box.grid(row = 0, column = 0, rowspan=2, padx = (20,20), pady = (20,20),    sticky = 'nsew')
 
-        self.summ_box = ctk.CTkTextbox(self.result_frame, width=60, height=60)
-        self.summ_box.grid(row = 0, column = 1,padx = (20,20), pady = (20,20))
 
-        self.summ_label = ctk.CTkLabel(self.result_frame,text="Сумма бросков")
-        self.summ_label.grid(row = 1, column = 1, sticky = 'ne')
+        # вывод суммы
+        self.summ_box = ctk.CTkTextbox(self.result_frame, width=60, height=60, font=('Aria', 24))
+        self.summ_box.grid(row = 0, column = 1,padx = (20,20), pady = 10, sticky = 's')
+        self.summ_box.tag_config("center", justify='center')
+
+        self.summ_label = ctk.CTkLabel(self.result_frame,text="Сумма\n бросков",  justify = 'center')
+        self.summ_label.grid(row = 1, column =1, pady= (0,20),sticky = 'n')
        # self.summ_box.grid(row = 1, column = 1, padx = 10, pady = 10, columnspan = 1, sticky = '')
 
         # настройки кнопок
@@ -86,7 +95,7 @@ class App(ctk.CTk):
         self.button = ctk.CTkButton(
             master = self.dice_frame, # указывает к какому телу будет привязано
             text = ' Бросить кубы! ',
-            command = lambda : func.dice_roll(self.dice_checkbox, self.result_box) # какая команда будет выполнена при нажатии
+            command = lambda : func.dice_roll(self.dice_checkbox, self.result_box, self.summ_box) # какая команда будет выполнена при нажатии
         ) # lambda тут нужна, чтобы при компиляции код сразу не срабатывал на холостом
         self.button.grid(row = 1, column = 1, padx=20, pady=10)
 
