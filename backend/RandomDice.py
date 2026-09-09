@@ -4,28 +4,36 @@ import random
 # должен выдавать случайный результат данного типа
 
 # условно: "введите дайс для броска: д20" -> генерит результат из 20 вариантов
+class Dice():
+    def __init__(self, name, multiplier = None, result = None):
+        self.name = name # название куба
+        self.multiplier = multiplier # множитель броска
+        self.result = result # результат броска
+
+    def get_multiplier(self):
+        return  self.multiplier
+
+    def get_name(self):
+        return self.name
+
+    def get_result(self):
+        return  self.result
+
+    def set_result(self, value):
+        self.result = value
+
 
 def random_dice(type_dice):
     try:
-        dice = type_dice
-        if  dice[0].isdigit():
-            part = dice.lower().split('d') # 5d20 -> 520
-            multiplier = int(part[0]) # 520 -> 5
-            print(multiplier)
-            edge = int(part[1]) # 520 -> 20
-            #print(f'[>] Результат бросков {dice[1:]} ({multiplier}) раз: \n')
+        name = type_dice.get_name()
+        edge = int(name[1:]) # число для границ бросков
+        multiplier = type_dice.get_multiplier()
 
-            for i  in range(multiplier):
-                result = random.randint(1, edge)
-                return result
-                #print(f'[{i+1}] {randice}')
+        for i in range(multiplier):
+            result = random.randint(1, edge)
+            type_dice.set_result(result)
 
-         #  print(f'\n[>] Сумма бросков: {summ}')
-
-        elif not  dice[0].isdigit():
-            edge = int(dice[1:])
-            randice = random.randint(1,edge )
-            return randice
+        return type_dice # возвращаем объект
 
     except ValueError:
         print("[!] Неправильный тип данных")

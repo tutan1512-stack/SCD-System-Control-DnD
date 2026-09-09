@@ -18,7 +18,7 @@ class App(ctk.CTk):
         self.version_bar.pack(side = 'bottom', fill = 'x', padx = 10, pady = 5 )
 
         # авторы
-        self.version_text = ctk.CTkLabel(self.version_bar, text = 'Версия: 1.0.3', font = ('Minecraft RUS', 14), text_color = 'gray')
+        self.version_text = ctk.CTkLabel(self.version_bar, text = 'Версия: 1.0.4', font = ('Minecraft RUS', 14), text_color = 'gray')
         self.version_text.pack(side = 'left')
 
         self.author = ctk.CTkLabel(self.version_bar, text='TerraCorp', font=('Minecraft RUS', 14),text_color='gray')
@@ -62,7 +62,7 @@ class App(ctk.CTk):
         # кубы
         self.dice_checkbox =  ControlBoxFrame(
             self.control_frame,
-            values = ['1d100','1d20','1d12','1d10','1d8','1d6','1d4'] )
+            values = ['d100','d20','d12','d10','d8','d6','d4'] )
         self.dice_checkbox.grid(row = 0, column = 0, padx = 10, pady = (10,10), sticky = 'ns')
 
 
