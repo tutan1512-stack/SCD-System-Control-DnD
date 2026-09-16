@@ -25,13 +25,15 @@ class Dice():
 
 def random_dice(type_dice):
     try:
-        name = type_dice.get_name()
+        name = type_dice.get_name() # имя куба
         edge = int(name[1:]) # число для границ бросков
-        multiplier = type_dice.get_multiplier()
+        multiplier = type_dice.get_multiplier() # кол-во бросков
+        result_list = []
 
         for i in range(multiplier):
             result = random.randint(1, edge)
-            type_dice.set_result(result)
+            result_list.append(result)
+            type_dice.set_result(result_list)
 
         return type_dice # возвращаем объект
 

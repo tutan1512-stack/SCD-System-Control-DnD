@@ -3,14 +3,14 @@ import customtkinter as ctk
 import backend.RandomDice as rd
 
 # сборщик подтверждений с чекбоксов
-def active_item( list_check_box, textbox) -> list | None:
+def active_item( list_check_box, textbox, multiplier) -> list | None:
     textbox.configure(state = 'normal')
     try:
         active = list_check_box.get()  # запрашиваем у чекбоксов список
         new_active = []
 
         for item in active: # проходим по списку
-            dice = rd.Dice(name=item, multiplier=1) # новый объект
+            dice = rd.Dice(name=item, multiplier=multiplier.get()) # новый объект
             new_active.append(dice)  # список объектов
 
         textbox.configure(state='disable')
@@ -49,9 +49,12 @@ def unpacking(list, textbox, sumbox):
         # список нужен для добавления распакованной части
         name = obj.get_name()
         result = obj.get_result()
-        summ = summ + result
+        
+        for item in result: # берем один результат из списка объекта
+            summ = summ + item
 
-        new_text = f"{name} | {result}\n"
+        text = ", ".join(str(x) for x in result) # проходим по элементам результата
+        new_text = f"{name} | {text}\n"
         textbox.insert('end', new_text)
 
     sumbox.insert('end', summ, 'center')
@@ -59,8 +62,8 @@ def unpacking(list, textbox, sumbox):
     sumbox.configure(state='disable')
 
 
-def dice_roll(list_check_box, textbox, sumbox):
-    data = active_item(list_check_box, textbox)
+def dice_roll(list_check_box, textbox, sumbox, multiplier):
+    data = active_item(list_check_box, textbox, multiplier)
 
     #print("DATA:", data)
     #print("TYPE:", type(data))

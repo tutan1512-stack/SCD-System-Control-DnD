@@ -2,7 +2,7 @@ import customtkinter as ctk
 from tkinter import *
 
 import backend.function as func
-import backend.RandomDice as rd
+import frontend.WidgetsClass as wc
 
 # создаем тело программы
 class App(ctk.CTk):
@@ -18,7 +18,7 @@ class App(ctk.CTk):
         self.version_bar.pack(side = 'bottom', fill = 'x', padx = 10, pady = 5 )
 
         # авторы
-        self.version_text = ctk.CTkLabel(self.version_bar, text = 'Версия: 1.0.4', font = ('Minecraft RUS', 14), text_color = 'gray')
+        self.version_text = ctk.CTkLabel(self.version_bar, text = 'Версия: 1.0.5', font = ('Minecraft RUS', 14), text_color = 'gray')
         self.version_text.pack(side = 'left')
 
         self.author = ctk.CTkLabel(self.version_bar, text='TerraCorp', font=('Minecraft RUS', 14),text_color='gray')
@@ -60,7 +60,7 @@ class App(ctk.CTk):
         self.control_frame.grid(row = 0, column = 1, padx = 50, pady = 5, columnspan = 1, sticky = 'ns') # последний атрибут отвечает за растяжение по направлениям
 
         # кубы
-        self.dice_checkbox =  ControlBoxFrame(
+        self.dice_checkbox =  wc.ControlBoxFrame(
             self.control_frame,
             values = ['d100','d20','d12','d10','d8','d6','d4'] )
         self.dice_checkbox.grid(row = 0, column = 0, padx = 10, pady = (10,10), sticky = 'ns')
@@ -80,7 +80,6 @@ class App(ctk.CTk):
         self.result_box = ctk.CTkTextbox(self.result_frame, width=150, height = 150, wrap='word',font=('Aria', 14))
         self.result_box.grid(row = 0, column = 0, rowspan=2, padx = (20,20), pady = (20,20),    sticky = 'nsew')
 
-
         # вывод суммы
         self.summ_box = ctk.CTkTextbox(self.result_frame, width=60, height=60, font=('Aria', 24))
         self.summ_box.grid(row = 0, column = 1,padx = (20,20), pady = 10, sticky = 's')
@@ -95,37 +94,20 @@ class App(ctk.CTk):
         self.button = ctk.CTkButton(
             master = self.dice_frame, # указывает к какому телу будет привязано
             text = ' Бросить кубы! ',
-            command = lambda : func.dice_roll(self.dice_checkbox, self.result_box, self.summ_box) # какая команда будет выполнена при нажатии
+            command = lambda : func.dice_roll(
+                self.dice_checkbox,
+                self.result_box,
+                self.summ_box,
+                self.spin
+
+            ) # какая команда будет выполнена при нажатии
         ) # lambda тут нужна, чтобы при компиляции код сразу не срабатывал на холостом
-        self.button.grid(row = 1, column = 1, padx=20, pady=10)
+        self.button.grid(row = 2, column = 1, padx=20, pady=10)
+
+        self.spin = wc.SpinBox(self.dice_frame, width=100, step_size=1)
+        self.spin.grid(row=1, column=1, padx=20, pady=20)
 
 
-class ControlBoxFrame(ctk.CTkFrame):
-    def __init__(self, master, values ):
-        super().__init__(master)
-        self.grid_columnconfigure(0, weight = 1)
-        self.values = values
-        self.checkboxes = [] # список в котором будут храниться боксы
-
-        # # параметр за текст над блоком
-        # self.title = ctk.CTkLabel(self, text = self.values, fg_color = 'gray30', corner_radius = 6) # задаем шаблон для чекбоксов
-        # self.title.grid(row = 0, column = 0, padx = 10, pady = (10,0), sticky = 'ne' )
-
-        # enumerate является инкреметной функцией, позволяет вести счет операций
-        for i, value in enumerate(self.values):
-            # создаем перемен ную бокса с нашим текстом
-            checkbox = ctk.CTkCheckBox(self, text = value)
-            # каждый новый бокс встает под предыдущем
-            checkbox.grid(row = i +1, column = 0, padx = 10, pady =(5,5), sticky = 'we')
-            self.checkboxes.append(checkbox)
-
-    def get(self):
-        checked_checkboxes = []
-        for checkbox in self.checkboxes:
-            if checkbox.get() == 1: # если объект включен (пользователь выбрал)
-                # вносим в список атрибут текста от каждого бокса
-                checked_checkboxes.append(checkbox.cget('text'))
-        return checked_checkboxes
 
 
 # запуск программы
