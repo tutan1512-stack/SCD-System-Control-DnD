@@ -1,4 +1,4 @@
-import customtkinter as ctk
+from sqlalchemy import select
 
 import backend.RandomDice as rd
 
@@ -21,7 +21,6 @@ def active_item( list_check_box, textbox, multiplier) -> list | None:
         textbox.insert('end', 'Для броска, выберите кубы')
         textbox.configure(state='disable')
         return None
-
 
 # обработчик бросков кубов
 def throw_dice(data: list):
@@ -61,7 +60,6 @@ def unpacking(list, textbox, sumbox):
     textbox.configure(state='disable')
     sumbox.configure(state='disable')
 
-
 def dice_roll(list_check_box, textbox, sumbox, multiplier):
     data = active_item(list_check_box, textbox, multiplier)
 
@@ -76,3 +74,20 @@ def dice_roll(list_check_box, textbox, sumbox, multiplier):
    # print("RESULT:", roll_result)
 
     unpacking(roll_result, textbox, sumbox)
+
+def save(session, objet):
+    session.add(objet)
+    session.commit()
+    session.refresh(objet)
+    return  objet
+
+def create(
+        session, # сессия в которой мы работаем
+        model, # класс, экземпляра который делаем
+        attribute, # атрибут, по которому сверяем записи (существует или нет)
+        *kwargs # словарь объекта
+):
+    found = getattr(model, attribute, None)
+    check = session.scalar(select(model).where(kwargs[attribute]==found))
+
+
