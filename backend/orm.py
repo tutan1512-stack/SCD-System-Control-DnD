@@ -1,4 +1,5 @@
 from sqlalchemy import select
+from backend.database import  session_orm
 from backend.model import Base
 
 def create_tables(engine):
@@ -6,7 +7,8 @@ def create_tables(engine):
     Base.metadata.create_all(engine)
 
 #
-def save(session, objet):
+def save(objet):
+    session = session_orm
     session.add(objet)
     session.commit()
     session.refresh(objet)
@@ -14,9 +16,8 @@ def save(session, objet):
 
 # функция для добавления элемента класса
 def insert_data(
-        session, # сессия в которой мы работаем
         **kwargs # словарь объекта, в котором передаем характеристики
     ):
-        save(session, **kwargs)
+        save(**kwargs)
 
 

@@ -1,7 +1,7 @@
 from typing import Annotated
 from sqlalchemy import MetaData, String, Integer, ForeignKey
 from sqlalchemy.orm import  Mapped, mapped_column, relationship
-from backend.database import Base, engine, session_orm
+from backend.database import Base, engine
 
 idtp = Annotated[int, mapped_column(primary_key= True)] # шаблон типа данных для первичных ключей
 
@@ -18,8 +18,6 @@ class Character(Base):
     #--------------------------------
     body_fk:Mapped[int]=mapped_column(Integer, ForeignKey('body.id'))
     #--------------------------------
-    inventory_fk:Mapped[int]=mapped_column(ForeignKey('inventories.id'))
-    #--------------------------------
     power: Mapped[str] = mapped_column(String(3))
     agility: Mapped[str] = mapped_column(String(3))
     intelligence: Mapped[str] = mapped_column(String(3))
@@ -31,11 +29,11 @@ class Character(Base):
     fraction = relationship('Fraction', back_populates='character')
     location = relationship('Location', back_populates='character')
 
-    inventory = relationship('Inventory', back_populates='character')
+    inventory = relationship( 'Inventory',back_populates='character')
 
     def __repr__(self):
         return f'Worldview: {self.id=}: {self.name=}: {self.role_fk=} : {self.worldview_fk=} : {self.fraction_fk=}\
-                            : {self.location_fk=} : {self.body_fk=} : {self.inventory_fk=} : {self.power=} : {self.agility=}\
+                            : {self.location_fk=} : {self.body_fk=} : {self.inventory=} : {self.role.role_ability=}: {self.power=} : {self.agility=}\
                             : {self.intelligence=} : {self.volition=}'
 
 class Body(Base):
@@ -60,19 +58,43 @@ class Body(Base):
 class Role(Base):
     __tablename__ = 'role'
     id: Mapped[idtp]
-    #--------------------------------
     name: Mapped[str] = mapped_column(String(30)) # название роли/класса
-    ability_frt: Mapped[int | None] = mapped_column(ForeignKey('ability.id')) # способность
-    ability_scd: Mapped[int | None] = mapped_column(ForeignKey('ability.id'))  # способность
-    ability_passive: Mapped[int | None] = mapped_column(ForeignKey('ability.id'))  # способность
-    #--------------------------------
     description: Mapped[str] = mapped_column(String(150)) # описание роли
 
+    role_ability = relationship('RoleAbility', back_populates='role')
     character = relationship('Character', back_populates='role')
 
     def __repr__(self):
-        return f'Worldview: {self.id=}: {self.name=}: {self.description=} : {self.ability_frt=} \
-                            : {self.ability_scd=} : {self.ability_passive=}'
+        return f'Worldview: {self.id=}: {self.name=}: {self.description=} : {self.role_ability=}'
+
+
+class RoleAbility(Base):
+    __tablename__ = 'role_abilities'
+    id: Mapped[idtp]
+    role_fk:Mapped[int]=mapped_column(Integer, ForeignKey('role.id'))
+    ability_fk:Mapped[int]=mapped_column(Integer, ForeignKey('ability.id'))
+
+    role = relationship('Role', back_populates='role_ability')
+    ability = relationship('Ability', back_populates='role_ability')
+
+    def __repr__(self):
+        return f'RoleAbility: {self.ability_fk=} : {self.role_fk}'
+
+
+class Ability(Base):
+    __tablename__ = "ability"
+    id: Mapped[idtp]
+    #--------------------------------
+    name:Mapped[str]=mapped_column(String(10))
+    distance:Mapped[int]=mapped_column(Integer())
+    damage:Mapped[str]=mapped_column(String(3))
+    description: Mapped[str]=mapped_column(String(150))
+
+    role_ability = relationship('RoleAbility', back_populates='ability')
+
+    def __repr__(self):
+        return f'Ability: {self.id=}: {self.name=}: {self.description=}: {self.damage=} : {self.distance=}'
+
 
 # класс фракций позиционирующие в мире
 class Fraction(Base):
@@ -82,17 +104,15 @@ class Fraction(Base):
     name: Mapped[str] = mapped_column(String(30)) # название фракции
     location_fk: Mapped[int] = mapped_column(ForeignKey('locations.id')) # Локация + внешний ключ
     worldview_fk: Mapped[int | None] = mapped_column(ForeignKey('worldview.id')) # Мировоззрение + внешний ключ
-    ability_fk: Mapped[int | None] = mapped_column(ForeignKey('ability.id')) # способность фракции
     #--------------------------------
     description: Mapped[str] = mapped_column(String(150))
 
     character = relationship('Character', back_populates='fraction')
     worldview = relationship('Worldview', back_populates='fraction')
-    ability = relationship('Ability', back_populates= ' fraction')
 
     def __repr__(self):
         return f'Fraction: {self.id=}: {self.name=}: {self.description=} : {self.location_fk=}\
-                            : {self.worldview=} : {self.ability_fk=} '
+                            : {self.worldview=}  '
 
 # мировоззрения персонажей
 class Worldview(Base):
@@ -106,21 +126,6 @@ class Worldview(Base):
 
     def __repr__(self):
         return f'Worldview: {self.id=}: {self.name=}: {self.description=}'
-
-class Ability(Base):
-    __tablename__ = "ability"
-    id: Mapped[idtp]
-    #--------------------------------
-    name:Mapped[str]=mapped_column(String(10))
-    distance:Mapped[int]=mapped_column(Integer())
-    damage:Mapped[str]=mapped_column(String(3))
-    description: Mapped[str]=mapped_column(String(150))
-
-    character = relationship('Character', back_populates='ability')
-    fraction = relationship('Fraction', back_populates='ability')
-
-    def __repr__(self):
-        return f'Ability: {self.id=}: {self.name=}: {self.description=}: {self.damage=} : {self.distance=}'
 
 # класс для отображения игровых мест
 class Location(Base):
@@ -145,7 +150,8 @@ class Item(Base):
     description:Mapped[str]=mapped_column(String(150))
     weight:Mapped[float]=mapped_column()
 
-    inventory2 = relationship('Inventory', back_populates='item')
+
+    inventory = relationship('Inventory', back_populates='item')
 
     def __repr__(self):
         return f'Items: {self.id=}: {self.name=}: {self.description=}: {self.property=} : {self.weight=}'
@@ -159,7 +165,7 @@ class Inventory(Base):
     quality: Mapped[int]=mapped_column(Integer)
 
     character = relationship('Character', back_populates='inventory')
-    item = relationship('Item', back_populates='inventory')
+    item: Mapped[Item] = relationship( 'Item', back_populates='inventory')
 
     def __repr__(self):
         return f'Inventory: {self.id=}: {self.character_fk=}: {self.item_fk=} : {self.quality=}'
@@ -185,6 +191,7 @@ class Weapon(Item):
     distance:Mapped[int]=mapped_column(Integer)
     damage:Mapped[str]=mapped_column(String(3))
 
+
     def __repr__(self):
         return f'Weapon: {self.id=}: {self.name=}: {self.description=}: {self.property=} : {self.weight=} : {self.type=} :\
         {self.damage=} : {self.damage=}'
@@ -192,14 +199,3 @@ class Weapon(Item):
 
 
 Base.metadata.create_all(engine)
-
-
-
-croosbow = Item(id = 1, name = 'Арбалет',description =' добротный Авризильский арбалет', property = 'Зловонный', weight = 15 )
-
-
-session_orm.add(croosbow)
-session_orm.commit()
-
-
-print(croosbow)
