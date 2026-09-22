@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Black">
+<<<<<<< HEAD
     <option name="sdkName" value="Python 3.14 (SCD-System-Control-DnD-main) (2)" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.14 (SCD-System-Control-DnD-main) (2)" project-jdk-type="Python SDK" />
+=======
+    <option name="sdkName" value="Python 3.14 (SCD-System-Control-DnD-main)" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.14 (SCD-System-Control-DnD-main)" project-jdk-type="Python SDK" />
+>>>>>>> ec71aa9c258b2df1ef522de7439847d588fd39aa
 </project>
