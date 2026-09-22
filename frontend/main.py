@@ -18,7 +18,7 @@ class App(ctk.CTk):
         self.version_bar.pack(side = 'bottom', fill = 'x', padx = 10, pady = 5 )
 
         # авторы
-        self.version_text = ctk.CTkLabel(self.version_bar, text = 'Версия: 1.0.6', font = ('Minecraft RUS', 14), text_color = 'gray')
+        self.version_text = ctk.CTkLabel(self.version_bar, text = 'Версия: 1.0.7', font = ('Minecraft RUS', 14), text_color = 'gray')
         self.version_text.pack(side = 'left')
 
         self.author = ctk.CTkLabel(self.version_bar, text='TerraCorp', font=('Minecraft RUS', 14),text_color='gray')

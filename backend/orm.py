@@ -6,17 +6,14 @@ def create_tables(engine):
     Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
 
-#
-def save(objet):
-    session = session_orm
-    session.add(objet)
+
+def create_object(session, Model, **kwargs):
+    objects = Model(**kwargs) # создаем объект класса с нашими переменными
+    session.add(objects)
     session.commit()
-    session.refresh(objet)
-    return  objet
+    session.refresh(objects)
+    return objects
 
-# функция для добавления элемента класса
-def insert_data(
-        **kwargs # словарь объекта, в котором передаем характеристики
-    ):
-        save(**kwargs)
-
+def delete_object(session, Model, attribute, name_attribute):
+    session.query(Model).filter(Model.attribute == name_attribute)
+    
