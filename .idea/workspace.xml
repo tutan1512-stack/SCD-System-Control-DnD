@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b2663abd-3508-42b9-95a0-84710866deb6" name="Changes" comment="1.0.5 - законченный дайс-ролл механизм, позволяющий бросать выбранные кубики определенное кол-во раз, которое пользователь сам решит" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;tutan1512-stack&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/tutan1512-stack/SCD-System-Control-DnD.git&quot;,
+    &quot;accountId&quot;: &quot;207e966c-2dca-4bd7-9f31-458bd0fb0c68&quot;
+  }
+}</component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.1850068650386945" />
+      <entry key="MS500" value="2.514088542428583" />
+      <entry key="S2" value="4.561336917701832" />
+      <entry key="S5" value="5.351896699355354" />
+      <entry key="S10" value="5.662344883632926" />
+      <entry key="S30" value="5.981213909169579" />
+      <entry key="S60" value="6.997081798112176" />
+      <entry key="M2" value="10.35785078013554" />
+      <entry key="M5" value="25.59333361538701" />
+      <entry key="M10" value="51.73901211743984" />
+      <entry key="M15" value="79.07461196927217" />
+      <entry key="M30" value="166.45909192792953" />
+      <entry key="H1" value="312.5133151954707" />
+      <entry key="H2" value="547.1210844837632" />
+      <entry key="H4" value="920.0740064594536" />
+      <entry key="D1" value="1904.569738963253" />
+      <entry key="W1" value="2239.9382304799765" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="7.9527381706427535E-112" />
+      <entry key="S5" value="6.34403185016701E-45" />
+      <entry key="S10" value="1.6258922034573068E-22" />
+      <entry key="S30" value="1.664192061371415E-7" />
+      <entry key="S60" value="0.0011089039457845926" />
+      <entry key="M2" value="0.11312294396157295" />
+      <entry key="M5" value="2.5714352830890506" />
+      <entry key="M10" value="9.271781357152573" />
+      <entry key="M15" value="16.730060867789398" />
+      <entry key="M30" value="38.85765141338926" />
+      <entry key="H1" value="73.24066638456229" />
+      <entry key="H2" value="124.24608108424435" />
+      <entry key="H4" value="195.44239260306372" />
+      <entry key="D1" value="365.2499683071432" />
+      <entry key="W1" value="421.3295965008072" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="1.134339225005631" />
+      <entry key="MS500" value="2.4914834498852545" />
+      <entry key="S2" value="4.551268052160421" />
+      <entry key="S5" value="5.3471879322218445" />
+      <entry key="S10" value="5.659856620060514" />
+      <entry key="S30" value="5.980324471232326" />
+      <entry key="S60" value="6.997574895414815" />
+      <entry key="M2" value="10.468745462947147" />
+      <entry key="M5" value="28.147205823922064" />
+      <entry key="M10" value="60.979362954625664" />
+      <entry key="M15" value="95.76613922252427" />
+      <entry key="M30" value="205.26890290575162" />
+      <entry key="H1" value="385.70565828115406" />
+      <entry key="H2" value="671.31696223872" />
+      <entry key="H4" value="1115.4616066560789" />
+      <entry key="D1" value="2269.795065525836" />
+      <entry key="W1" value="2661.2635290271" />
+    </decayedShown>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="3IW4FIlzrlWgkv0lxNSGz64SvoC" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.frontend.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.function.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.model.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.completion.popup&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\Python\Project\frontend" />
+      <recent name="F:\Python\_project\SD_dnd" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="frontend.main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="Project" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.14 (Project)" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="false" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="frontend.main" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="true" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-245168a56dbd-c2ffad84badb-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-261.25134.203" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b2663abd-3508-42b9-95a0-84710866deb6" name="Changes" comment="" />
+      <created>1787866886696</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1787866886696</updated>
+    </task>
+    <task id="LOCAL-00001" summary="1.0.2 сделан вывод суммы бросков">
+      <option name="closed" value="true" />
+      <created>1788634467021</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1788634467021</updated>
+    </task>
+    <task id="LOCAL-00002" summary="1.0.2 сделан вывод суммы бросков">
+      <option name="closed" value="true" />
+      <created>1788637999068</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1788637999068</updated>
+    </task>
+    <task id="LOCAL-00003" summary="1.0.4 обновлена архитектура RandomDice с переходом на единый класс">
+      <option name="closed" value="true" />
+      <created>1788936960295</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1788936960295</updated>
+    </task>
+    <task id="LOCAL-00004" summary="1.0.5 - законченный дайс-ролл механизм, позволяющий бросать выбранные кубики определенное кол-во раз, которое пользователь сам решит">
+      <option name="closed" value="true" />
+      <created>1789543388137</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1789543388137</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="1.0.2 сделан вывод суммы бросков" />
+    <MESSAGE value="1.0.4 обновлена архитектура RandomDice с переходом на единый класс" />
+    <MESSAGE value="1.0.5 - законченный дайс-ролл механизм, позволяющий бросать выбранные кубики определенное кол-во раз, которое пользователь сам решит" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.0.5 - законченный дайс-ролл механизм, позволяющий бросать выбранные кубики определенное кол-во раз, которое пользователь сам решит" />
+  </component>
+</project>
