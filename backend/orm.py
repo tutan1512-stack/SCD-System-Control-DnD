@@ -20,4 +20,3 @@ def insert_data(
     ):
         save(**kwargs)
 
-k
