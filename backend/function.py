@@ -1,6 +1,45 @@
-from sqlalchemy import select
+import random
+ # генератор случайных бросков дайсов
+# должен получать тип дайса
+# должен выдавать случайный результат данного типа
 
-import backend.RandomDice as rd
+# условно: "введите дайс для броска: д20" -> генерит результат из 20 вариантов
+class Dice():
+    def __init__(self, name, multiplier = None, result = None):
+        self.name = name # название куба
+        self.multiplier = multiplier # множитель броска
+        self.result = result # результат броска
+
+    def get_multiplier(self):
+        return  self.multiplier
+
+    def get_name(self):
+        return self.name
+
+    def get_result(self):
+        return  self.result
+
+    def set_result(self, value):
+        self.result = value
+
+
+def random_dice(type_dice):
+    try:
+        name = type_dice.get_name() # имя куба
+        edge = int(name[1:]) # число для границ бросков
+        multiplier = type_dice.get_multiplier() # кол-во бросков
+        result_list = []
+
+        for i in range(multiplier):
+            result = random.randint(1, edge)
+            result_list.append(result)
+            type_dice.set_result(result_list)
+
+        return type_dice # возвращаем объект
+
+    except ValueError:
+        print("[!] Неправильный тип данных")
+
 
 # сборщик подтверждений с чекбоксов
 def active_item( list_check_box, textbox, multiplier) -> list | None:
@@ -10,7 +49,7 @@ def active_item( list_check_box, textbox, multiplier) -> list | None:
         new_active = []
 
         for item in active: # проходим по списку
-            dice = rd.Dice(name=item, multiplier=multiplier.get()) # новый объект
+            dice = Dice(name=item, multiplier=multiplier.get()) # новый объект
             new_active.append(dice)  # список объектов
 
         textbox.configure(state='disable')
@@ -28,7 +67,7 @@ def throw_dice(data: list):
 
     for value in data: # объект списка
         #передаем куб и получаем куб
-        final_dice = rd.random_dice(value)
+        final_dice = random_dice(value)
         # передаем куб в список
         result_list.append(final_dice)
 
@@ -74,20 +113,5 @@ def dice_roll(list_check_box, textbox, sumbox, multiplier):
    # print("RESULT:", roll_result)
 
     unpacking(roll_result, textbox, sumbox)
-
-def save(session, objet):
-    session.add(objet)
-    session.commit()
-    session.refresh(objet)
-    return  objet
-
-def create(
-        session, # сессия в которой мы работаем
-        model, # класс, экземпляра который делаем
-        attribute, # атрибут, по которому сверяем записи (существует или нет)
-        *kwargs # словарь объекта
-):
-    found = getattr(model, attribute, None)
-    check = session.scalar(select(model).where(kwargs[attribute]==found))
 
 

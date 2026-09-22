@@ -1,32 +1,24 @@
-from sqlalchemy import create_engine, String, Integer, ForeignKey
-from sqlalchemy.orm import sessionmaker, DeclarativeBase, Mapped, mapped_column, Session, relationship
+from typing import Annotated
+from sqlalchemy import MetaData, String, Integer, ForeignKey
+from sqlalchemy.orm import  Mapped, mapped_column, relationship
+from backend.database import Base, engine, session_orm
 
-engine = create_engine(f'sqlite:///database.db',echo=False)
-
-# не дает упасть программе во время обращения к закрытой сессии после комита
-session = Session(bind=engine, expire_on_commit=False)
-
-# Этот файл отвечает за хранение всех информационных структур необходимые
-# для макроконтроля ГМ над игрой по системе "Imprizil"
-
-# Абстрактный класс
-class Base(DeclarativeBase):
-    pass
+idtp = Annotated[int, mapped_column(primary_key= True)] # шаблон типа данных для первичных ключей
 
 # базовый класс персонажа
 class Character(Base):
     __tablename__ = 'characters'
-    id: Mapped[int] = mapped_column(primary_key= True)
+    id: Mapped[idtp]
     #--------------------------------
     name: Mapped[str] = mapped_column(String(50))
     role_fk: Mapped[int | None] = mapped_column(ForeignKey('role.id')) # внешний ключ
-    worldview_fk: Mapped[int | None]=mapped_column(ForeignKey('fractions.worldview'))
+    worldview_fk: Mapped[int | None]=mapped_column(ForeignKey('worldview.id'))
     fraction_fk: Mapped[int | None] = mapped_column(ForeignKey('fractions.id')) # внешний ключ
     location_fk: Mapped[int] = mapped_column(Integer, ForeignKey('locations.id'))
     #--------------------------------
     body_fk:Mapped[int]=mapped_column(Integer, ForeignKey('body.id'))
     #--------------------------------
-    inventory_fk:Mapped[int]=mapped_column(ForeignKey('inventory.id'))
+    inventory_fk:Mapped[int]=mapped_column(ForeignKey('inventories.id'))
     #--------------------------------
     power: Mapped[str] = mapped_column(String(3))
     agility: Mapped[str] = mapped_column(String(3))
@@ -38,6 +30,7 @@ class Character(Base):
     role = relationship('Role', back_populates='character')
     fraction = relationship('Fraction', back_populates='character')
     location = relationship('Location', back_populates='character')
+
     inventory = relationship('Inventory', back_populates='character')
 
     def __repr__(self):
@@ -47,7 +40,7 @@ class Character(Base):
 
 class Body(Base):
     __tablename__ = 'body'
-    id:Mapped[int]=mapped_column(Integer, primary_key=True)
+    id: Mapped[idtp]
     # --------------------------------
     name:Mapped[str]=mapped_column(String(15))
     description:Mapped[str]=mapped_column(String(50))
@@ -63,11 +56,10 @@ class Body(Base):
         return f'Worldview: {self.id=}: {self.name=}: {self.description=} \
                             : {self.health=} : {self.hit=} : {self.stress=} : {self.lassitude=}'
 
-
 # Класс ролей/классов, за которые будут играть
 class Role(Base):
     __tablename__ = 'role'
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[idtp]
     #--------------------------------
     name: Mapped[str] = mapped_column(String(30)) # название роли/класса
     ability_frt: Mapped[int | None] = mapped_column(ForeignKey('ability.id')) # способность
@@ -85,10 +77,9 @@ class Role(Base):
 # класс фракций позиционирующие в мире
 class Fraction(Base):
     __tablename__ = 'fractions'
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[idtp]
     #--------------------------------
     name: Mapped[str] = mapped_column(String(30)) # название фракции
-    leader_fk: Mapped[int | None] = mapped_column(ForeignKey('characters.id')) # Лидер + внешний ключ
     location_fk: Mapped[int] = mapped_column(ForeignKey('locations.id')) # Локация + внешний ключ
     worldview_fk: Mapped[int | None] = mapped_column(ForeignKey('worldview.id')) # Мировоззрение + внешний ключ
     ability_fk: Mapped[int | None] = mapped_column(ForeignKey('ability.id')) # способность фракции
@@ -100,7 +91,7 @@ class Fraction(Base):
     ability = relationship('Ability', back_populates= ' fraction')
 
     def __repr__(self):
-        return f'Fraction: {self.id=}: {self.name=}: {self.description=}: {self.leader_fk=} : {self.location_fk=}\
+        return f'Fraction: {self.id=}: {self.name=}: {self.description=} : {self.location_fk=}\
                             : {self.worldview=} : {self.ability_fk=} '
 
 # мировоззрения персонажей
@@ -118,7 +109,7 @@ class Worldview(Base):
 
 class Ability(Base):
     __tablename__ = "ability"
-    id:Mapped[int]=mapped_column(primary_key=True)
+    id: Mapped[idtp]
     #--------------------------------
     name:Mapped[str]=mapped_column(String(10))
     distance:Mapped[int]=mapped_column(Integer())
@@ -134,7 +125,7 @@ class Ability(Base):
 # класс для отображения игровых мест
 class Location(Base):
     __tablename__ = 'locations'
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[idtp]
     #--------------------------------
     name: Mapped[str]=mapped_column(String(20))
     description: Mapped[str]=mapped_column(String(150))
@@ -146,7 +137,7 @@ class Location(Base):
 
 class Item(Base):
     __tablename__ = 'items'
-    id:Mapped[int]=mapped_column(primary_key=True)
+    id: Mapped[idtp]
     #--------------------------------
     name:Mapped[str]=mapped_column(String(20))
 
@@ -154,16 +145,16 @@ class Item(Base):
     description:Mapped[str]=mapped_column(String(150))
     weight:Mapped[float]=mapped_column()
 
-    inventory = relationship('Inventory', back_populates='item')
+    inventory2 = relationship('Inventory', back_populates='item')
 
     def __repr__(self):
         return f'Items: {self.id=}: {self.name=}: {self.description=}: {self.property=} : {self.weight=}'
 
 class Inventory(Base):
-    __tablename__ = 'inventory'
-    id:Mapped[int]=mapped_column(primary_key=True)
+    __tablename__ = 'inventories'
+    id: Mapped[idtp]
     #--------------------------------
-    character_fk:Mapped[int]=mapped_column(ForeignKey('users.id'))
+    character_fk:Mapped[int]=mapped_column(ForeignKey('characters.id'))
     item_fk:Mapped[int]=mapped_column(ForeignKey('items.id'))
     quality: Mapped[int]=mapped_column(Integer)
 
@@ -207,8 +198,8 @@ Base.metadata.create_all(engine)
 croosbow = Item(id = 1, name = 'Арбалет',description =' добротный Авризильский арбалет', property = 'Зловонный', weight = 15 )
 
 
-session.add(croosbow)
-session.commit()
+session_orm.add(croosbow)
+session_orm.commit()
 
 
 print(croosbow)
