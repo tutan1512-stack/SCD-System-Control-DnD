@@ -16,4 +16,5 @@ def create_object(session, Model, **kwargs):
 
 def delete_object(session, Model, attribute, name_attribute):
     session.query(Model).filter(Model.attribute == name_attribute)
-    
+
+/
